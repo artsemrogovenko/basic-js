@@ -18,7 +18,16 @@ const HALF_LIFE_PERIOD = 5730;
  *
  */
 function dateSample(sampleActivity) {
-
+  if(typeof sampleActivity!="string" || sampleActivity > MODERN_ACTIVITY){
+    return false;
+  }
+  let activity = parseFloat(sampleActivity);
+  if(isNaN(activity) || activity<=0){
+    return false;
+  }
+  let decayRate = Math.LN2/HALF_LIFE_PERIOD;
+  let carbonDating= Math.log(MODERN_ACTIVITY / activity) / decayRate;
+  return Math.ceil(carbonDating);
 }
 
 module.exports = {
