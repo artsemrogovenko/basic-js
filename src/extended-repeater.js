@@ -17,8 +17,35 @@ const { NotImplementedError } = require('../extensions/index.js');
  */
 function repeater(str, options) {
 
+
+
   if(options.hasOwnProperty("addition")){
-    let additionStr= myComposer(options.addition,options.additionRepeatTimes,options.additionSeparator);
+
+    let additionStr = "";
+
+    if ( !options.hasOwnProperty("additionRepeatTimes")
+        && !options.hasOwnProperty("additionSeparator")) {
+      return  Array.from({length: options.repeatTimes},
+          (v) => str+options.addition).join("+");
+    }
+    if ( !options.hasOwnProperty("additionSeparator")
+        && !options.hasOwnProperty("separator")) {
+      additionStr = myComposer(options.addition,options.additionRepeatTimes,"|");
+      return  Array.from({length: options.repeatTimes},
+          (v) => str+additionStr).join("+");
+    }
+    if (!options.hasOwnProperty("separator")) {
+      let additionStr = myComposer(options.addition,options.additionRepeatTimes,options.additionSeparator);
+      return  Array.from({length: options.repeatTimes},
+          (v) => str+additionStr).join("+");
+    }
+    if (!options.hasOwnProperty("additionSeparator")) {
+      additionStr = myComposer(options.addition,options.additionRepeatTimes,"|");
+      return  Array.from({length: options.repeatTimes},
+          (v) => str+additionStr).join(options.separator);
+    }
+
+    additionStr= myComposer(options.addition,options.additionRepeatTimes,options.additionSeparator);
 
     let result = myComposer(str,options.repeatTimes,options.separator,additionStr);
 
