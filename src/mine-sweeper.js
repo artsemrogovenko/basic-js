@@ -56,7 +56,6 @@ function foundMines(arr, row, col) {
                 founded++;
             }
         } catch (e){
-            console.log(e.messageType);
         }
     }
     return founded;
